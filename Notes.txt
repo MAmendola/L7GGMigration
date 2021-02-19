@@ -1,0 +1,97 @@
+1.provider # aws and region - Done
+2.VPC
+3.AZ and Subnets # 2-AZ and 8-subnets
+4.SG # Security Groups
+5. NatGateway # EIP needed
+6.IG # Internet gateway
+7. Route Tables
+8. ASG # lunch configuration and EC2 type
+9. Load Balancers
+10. DB # Mater and Secandary
+11. S3 # Two of them
+12. Route 53
+13. SNS # send errors to email
+14. CloudWatch
+15. CloudFront
+16. IAM # Rolls, Policys and Users
+
+-----------------------------------------------------------
+
+/*
+resource "aws_vpc" "lab_vpc" {
+cidr_block = "10.0.0.0/16"
+}
+
+resource "aws_subnet" "public1" {
+vpc_id = aws_vpc.lab_vpc.id
+cidr_block = "10.0.1.0/24"
+availability_zone = "us-east-1a"
+
+ tags = {
+Name = "Public Subnet1"
+}
+}
+
+resource "aws_subnet" "private1" {
+vpc_id = aws_vpc.lab_vpc.id
+cidr_block = "10.0.2.0/24"
+availability_zone = "us-east-1a"
+tags = {
+Name = "Private Subnet1"
+}
+}
+
+resource "aws_internet_gateway" "lab_IG" {
+vpc_id = aws_vpc.lab_vpc.id
+
+ tags = {
+Name = "lab_IG"
+}
+}
+
+resource "aws_route_table" "route_table1" {
+vpc_id = aws_vpc.lab_vpc.id
+
+ route {
+cidr_block = "0.0.0.0/0"
+gateway_id = aws_internet_gateway.lab_IG.id
+}
+}
+
+resource "aws_route_table_association" "subnet_association1" {
+subnet_id = aws_subnet.public1.id
+route_table_id = aws_route_table.route_table1.id
+}
+
+resource "aws_route_table_association" "route_association" {
+gateway_id = aws_internet_gateway.lab_IG.id
+route_table_id = aws_route_table.route_table1.id
+}
+
+
+resource "aws_eip" "elastic_ip" {
+vpc = true
+
+ depends_on = [aws_internet_gateway.lab_IG]
+}
+
+resource "aws_nat_gateway" "lab_nat" {
+allocation_id = aws_eip.elastic_ip.id
+subnet_id = aws_subnet.public1.id
+}
+
+resource "aws_route_table" "route_table2" {
+vpc_id = aws_vpc.lab_vpc.id
+
+ route {
+cidr_block = "0.0.0.0/0"
+gateway_id = aws_nat_gateway.lab_nat.id
+}
+}
+
+resource "aws_route_table_association" "subnet_association2" {
+subnet_id = aws_subnet.private1.id
+route_table_id = aws_route_table.route_table2.id
+}
+
+*/

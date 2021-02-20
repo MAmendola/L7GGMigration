@@ -19,7 +19,7 @@ variable region {
 variable "app_ec2_tags" {
   type = map
   default  = {
-  Name = {"app-tier"
+  Name = "app-tier"
 }
 }
 

@@ -35,6 +35,18 @@ variable "external_ip" {
   default = "0.0.0.0/0"
 }
 
+variable "server_port" {
+  description = "The port the web server will be listening"
+  type        = number
+  default     = 8080
+}
+
+variable "elb_port" {
+  description = "The port the elb will be listening"
+  type        = number
+  default     = 80
+} 
+
 /*variable "subnet-ids" {
   type = string
   default = "subnet-0751eb0b, subnet-0a572c53, subnet-73c4e504, subnet-be690595,subnet-bf051385,subnet-c3ba25a6"
@@ -49,3 +61,8 @@ variable "external_ip" {
 #     "us-east-2" = "ami-0ebc8f6f580a04647"
 #   }
 # }
+
+variable "ami" {
+  type = string
+  default = "ami-096fda3c22c1c990a"
+}

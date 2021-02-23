@@ -1,5 +1,5 @@
 resource "aws_vpc" "team2vpc" {
-  cidr_block       = "10.0.0.0/16"
+  cidr_block = "10.0.0.0/16"
 
   tags = {
     Name = "main"
@@ -105,8 +105,8 @@ resource "aws_route_table" "public_table_us-west-2a" {
   route {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.IG.id
-    
-  
+
+
   }
 }
 
@@ -122,7 +122,7 @@ resource "aws_route_table" "public_table_us-west-2b" {
   route {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.IG.id
-    
+
   }
 }
 
@@ -140,7 +140,7 @@ resource "aws_route_table" "private_table_us-west-2a" {
   route {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_nat_gateway.nat-2a.id
-    
+
   }
 }
 
@@ -165,7 +165,7 @@ resource "aws_route_table" "private_table_us-west-2b" {
   route {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_nat_gateway.nat-2b.id
-    
+
   }
 }
 

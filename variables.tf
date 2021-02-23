@@ -2,11 +2,11 @@
 variable "instance_type" {
   type        = string
   description = "This is my instance type"
-  default = "t2.micro"
+  default     = "t2.micro"
 }
 
-variable region {
-  type = string
+variable "region" {
+  type    = string
   default = "us-west-2"
 }
 
@@ -17,17 +17,17 @@ variable region {
 # }
 
 variable "app_ec2_tags" {
-  type = map
-  default  = {
-  Name = "app-tier"
-}
+  type = map(any)
+  default = {
+    Name = "app-tier"
+  }
 }
 
 variable "web_ec2_tags" {
-  type = map
-  default  = { 
-  Name = "web-tier"
-}
+  type = map(any)
+  default = {
+    Name = "web-tier"
+  }
 }
 
 variable "external_ip" {
@@ -41,11 +41,11 @@ variable "server_port" {
   default     = 8080
 }
 
-variable "elb_port" {
+variable "http_port" {
   description = "The port the elb will be listening"
   type        = number
   default     = 80
-} 
+}
 
 /*variable "subnet-ids" {
   type = string
@@ -63,6 +63,6 @@ variable "elb_port" {
 # }
 
 variable "ami" {
-  type = string
-  default = "ami-096fda3c22c1c990a"
+  type    = string
+  default = "ami-0e999cbd62129e3b1"
 }

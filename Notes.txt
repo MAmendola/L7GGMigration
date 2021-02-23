@@ -12,10 +12,11 @@
 10. DB # Mater and Secandary
 11. S3 # Two of them
 12. Route 53
-13. SNS # send errors to email
+13. SNS # send errors to email   
 14. CloudWatch
 15. CloudFront
 16. IAM # Rolls, Policys and Users
+
 
 -----------------------------------------------------------
 

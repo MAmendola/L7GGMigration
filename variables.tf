@@ -41,26 +41,13 @@ variable "server_port" {
   default     = 8080
 }
 
+
 variable "http_port" {
   description = "The port the elb will be listening"
   type        = number
   default     = 80
 }
 
-/*variable "subnet-ids" {
-  type = string
-  default = "subnet-0751eb0b, subnet-0a572c53, subnet-73c4e504, subnet-be690595,subnet-bf051385,subnet-c3ba25a6"
-} 
-*/
-
-# variable "aws_amis" {
-#   type = map
-#   default = {
-#     "us-east-1" = "ami-0739f8cdb239fe9ae"
-#     "us-west-2" = "ami-008b09448b998a562"
-#     "us-east-2" = "ami-0ebc8f6f580a04647"
-#   }
-# }
 
 variable "ami" {
   type    = string

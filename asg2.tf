@@ -11,6 +11,7 @@ resource "aws_launch_configuration" "asg-launch-config-apptier" {
   image_id        = var.ami
   instance_type   = var.instance_type
   security_groups = [aws_security_group.sec_group_apptier.id]
+  iam_instance_profile = "${aws_iam_instance_profile.ec2_role.name}"
 
   user_data = <<-EOF
               #!/bin/bash -ex

@@ -22,7 +22,7 @@
 
 resource "aws_rds_cluster" "default" {
   cluster_identifier      = "aurora-cluster-demo"
-  db_subnet_group_name = aws_db_subnet_group.aurora_subnet_group.name
+  db_subnet_group_name    = aws_db_subnet_group.aurora_subnet_group.name
   engine                  = "aurora-mysql"
   engine_version          = "5.7.mysql_aurora.2.03.2"
   availability_zones      = ["us-west-2a", "us-west-2b"]
@@ -31,27 +31,27 @@ resource "aws_rds_cluster" "default" {
   master_password         = var.db_password
   backup_retention_period = 0
   preferred_backup_window = "07:00-09:00"
-  vpc_security_group_ids = [aws_security_group.db_sec_group.id]
-  skip_final_snapshot = true
-  #   s3_import {
+  vpc_security_group_ids  = [aws_security_group.db_sec_group.id]
+  skip_final_snapshot     = true
+  # s3_import {
   #   source_engine         = "aurora-mysql"
   #   source_engine_version = "5.7"
   #   bucket_name           = "GoGreen-02262021"
   #   bucket_prefix         = "backups"
   #   ingestion_role        = "arn:aws:iam::1234567890:role/role-xtrabackup-rds-restore"
   # }
-  
+
 }
 
 
-    resource "aws_rds_cluster_instance" "cluster_instances" {
+resource "aws_rds_cluster_instance" "cluster_instances" {
   count              = 2
   identifier         = "aurora-cluster-demo-${count.index}"
   cluster_identifier = aws_rds_cluster.default.id
   instance_class     = "db.r4.large"
   engine             = aws_rds_cluster.default.engine
   engine_version     = aws_rds_cluster.default.engine_version
-    
+
 
 
 }
@@ -67,23 +67,23 @@ resource "aws_db_subnet_group" "aurora_subnet_group" {
 
 
 
-  resource "aws_security_group" "db_sec_group" {
+resource "aws_security_group" "db_sec_group" {
   name   = "db_sec_group"
   vpc_id = aws_vpc.team2vpc.id
 
   ingress {
-    from_port   = "3306"
-    to_port     = "3306"
-    protocol    = "tcp"
-    security_groups = [aws_security_group.sec_group.id] 
+    from_port       = "3306"
+    to_port         = "3306"
+    protocol        = "tcp"
+    security_groups = [aws_security_group.sec_group.id]
   }
 
-   egress {
+  egress {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
-    }
   }
+}
 
 

@@ -8,10 +8,10 @@
 # }
 
 resource "aws_launch_configuration" "asg-launch-config-apptier" {
-  image_id        = var.ami
-  instance_type   = var.instance_type
-  security_groups = [aws_security_group.sec_group_apptier.id]
-  iam_instance_profile = "${aws_iam_instance_profile.ec2_role.name}"
+  image_id             = var.ami
+  instance_type        = var.instance_type
+  security_groups      = [aws_security_group.sec_group_apptier.id]
+  iam_instance_profile = aws_iam_instance_profile.test_profile.name
 
   user_data = <<-EOF
               #!/bin/bash -ex
@@ -37,9 +37,9 @@ resource "aws_security_group" "sec_group_apptier" {
   vpc_id = aws_vpc.team2vpc.id
 
   ingress {
-    from_port   = var.http_port
-    to_port     = var.http_port
-    protocol    = "tcp"
+    from_port       = var.http_port
+    to_port         = var.http_port
+    protocol        = "tcp"
     security_groups = [aws_security_group.lb-sg-apptier.id] #------the surce is lb in webtier to test only
   }
 
@@ -94,8 +94,8 @@ resource "aws_lb" "apptier_lb" {
   #   Environment = "production"
   # }
 }
-  
-  resource "aws_lb_listener" "app_tier_lb_listener" {
+
+resource "aws_lb_listener" "app_tier_lb_listener" {
   load_balancer_arn = aws_lb.apptier_lb.arn
   port              = "80"
   protocol          = "HTTP"
@@ -111,13 +111,13 @@ resource "aws_lb" "apptier_lb" {
 
 
 
-  #   health_check {
-  #     target              = "HTTP:${var.server_port}/"
-  #     interval            = 30
-  #     timeout             = 3
-  #     healthy_threshold   = 2
-  #     unhealthy_threshold = 2
-  #   }
+#   health_check {
+#     target              = "HTTP:${var.server_port}/"
+#     interval            = 30
+#     timeout             = 3
+#     healthy_threshold   = 2
+#     unhealthy_threshold = 2
+#   }
 # }
 
 resource "aws_security_group" "lb-sg-apptier" {
@@ -126,15 +126,15 @@ resource "aws_security_group" "lb-sg-apptier" {
 
   # Inbound HTTP from anywhere
   ingress {
-    from_port   = var.http_port
-    to_port     = var.http_port
-    protocol    = "tcp"
+    from_port       = var.http_port
+    to_port         = var.http_port
+    protocol        = "tcp"
     security_groups = [aws_security_group.elb-sg.id]
   }
-    ingress {
-    from_port   = 3306
-    to_port     = 3306
-    protocol    = "tcp"
+  ingress {
+    from_port       = 3306
+    to_port         = 3306
+    protocol        = "tcp"
     security_groups = [aws_security_group.elb-sg.id]
   }
 

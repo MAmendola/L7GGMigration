@@ -19,7 +19,7 @@ POLICY
 }
 
 resource "aws_iam_policy" "replication" {
-  name = "gogreen-replication-02262021"
+  name = "tf-iam-role-policy-replication-12345"
 
   policy = <<POLICY
 {
@@ -64,7 +64,7 @@ resource "aws_iam_role_policy_attachment" "replication" {
 }
 
 resource "aws_s3_bucket" "destination" {
-  bucket = "tf-test-bucket-destination-12345"
+  bucket = "gogreen-replication-02262021"
 
   versioning {
     enabled = true
@@ -82,10 +82,6 @@ resource "aws_s3_bucket" "destination" {
     noncurrent_version_transition {
       days          = 1825
       storage_class = "GLACIER"
-    }
-
-    noncurrent_version_expiration {
-      days = 1825
     }
   }
 }
@@ -111,6 +107,20 @@ resource "aws_s3_bucket" "bucket" {
         bucket        = aws_s3_bucket.destination.arn
         storage_class = "GLACIER"
       }
+    }
+
+    transition {
+      days          = 90
+      storage_class = "STANDARD_IA" # or "ONEZONE_IA"
+    }
+
+    transition {
+      days          = 90
+      storage_class = "GLACIER"
+    }
+
+    expiration {
+      days = 1825
     }
   }
 }

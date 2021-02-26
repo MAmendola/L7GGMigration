@@ -7,7 +7,7 @@ resource "aws_security_group" "sec_group" {
     from_port   = var.http_port
     to_port     = var.http_port
     protocol    = "tcp"
-    security_groups = [aws_security_group.elb-sg.id]
+    security_groups = [aws_security_group.elb-sg.id] 
   }
 
    egress {

@@ -68,7 +68,7 @@ resource "aws_autoscaling_group" "asg-apptier" {
 
   tag {
     key                 = "Name"
-    value               = "terraform-asg-apptier"
+    value               = "app-tier"
     propagate_at_launch = true
   }
 }
@@ -127,6 +127,12 @@ resource "aws_security_group" "lb-sg-apptier" {
   ingress {
     from_port   = var.http_port
     to_port     = var.http_port
+    protocol    = "tcp"
+    security_groups = [aws_security_group.elb-sg.id]
+  }
+    ingress {
+    from_port   = 3306
+    to_port     = 3306
     protocol    = "tcp"
     security_groups = [aws_security_group.elb-sg.id]
   }

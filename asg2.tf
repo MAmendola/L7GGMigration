@@ -1,11 +1,11 @@
 
 
 
-resource "aws_launch_template" "app_tier_launch_template" {
-  name_prefix   = "app_tier"
-  image_id      = var.ami
-  instance_type = var.instance_type
-}
+# resource "aws_launch_template" "app_tier_launch_template" {
+#   name_prefix   = "app_tier"
+#   image_id      = var.ami
+#   instance_type = var.instance_type
+# }
 
 resource "aws_launch_configuration" "asg-launch-config-apptier" {
   image_id        = var.ami
@@ -39,7 +39,7 @@ resource "aws_security_group" "sec_group_apptier" {
     from_port   = var.http_port
     to_port     = var.http_port
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    security_groups = [aws_security_group.lb-sg-apptier.id] #------the surce is lb in webtier to test only
   }
 
   egress {
@@ -83,10 +83,10 @@ resource "aws_autoscaling_group" "asg-apptier" {
 
 resource "aws_lb" "apptier_lb" {
   name               = "apptier-lb"
-  internal           = false
-  load_balancer_type = "network"
+  internal           = true
+  load_balancer_type = "application"
   subnets            = [aws_subnet.private3.id, aws_subnet.private4.id]
-
+  security_groups    = [aws_security_group.lb-sg-apptier.id]
   # enable_deletion_protection = true
 
   # tags = {
@@ -97,7 +97,7 @@ resource "aws_lb" "apptier_lb" {
   resource "aws_lb_listener" "app_tier_lb_listener" {
   load_balancer_arn = aws_lb.apptier_lb.arn
   port              = "80"
-  protocol          = "TCP"
+  protocol          = "HTTP"
   # ssl_policy        = "ELBSecurityPolicy-2016-08"
   # certificate_arn   = "arn:aws:iam::187416307283:server-certificate/test_cert_rab3wuqwgja25ct3n4jdj2tzu4"
 
@@ -128,7 +128,7 @@ resource "aws_security_group" "lb-sg-apptier" {
     from_port   = var.http_port
     to_port     = var.http_port
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    security_groups = [aws_security_group.elb-sg.id]
   }
 
   egress {
@@ -159,7 +159,7 @@ resource "aws_security_group" "lb-sg-apptier" {
 resource "aws_lb_target_group" "apptier_tg" {
   name     = "tf-app-lb-tg"
   port     = 80
-  protocol = "TCP"
+  protocol = "HTTP"
   vpc_id   = aws_vpc.team2vpc.id
 }
 

@@ -8,9 +8,10 @@
 # }
 
 resource "aws_launch_configuration" "asg-launch-config-apptier" {
-  image_id        = var.ami
-  instance_type   = var.instance_type
-  security_groups = [aws_security_group.sec_group_apptier.id]
+  image_id             = var.ami
+  instance_type        = var.instance_type
+  security_groups      = [aws_security_group.sec_group_apptier.id]
+  iam_instance_profile = aws_iam_instance_profile.test_profile.name
 
   user_data = <<-EOF
               #!/bin/bash -ex
@@ -68,7 +69,7 @@ resource "aws_autoscaling_group" "asg-apptier" {
 
   tag {
     key                 = "Name"
-    value               = "terraform-asg-apptier"
+    value               = "app-tier"
     propagate_at_launch = true
   }
 }
@@ -128,6 +129,15 @@ resource "aws_security_group" "lb-sg-apptier" {
     from_port       = var.http_port
     to_port         = var.http_port
     protocol        = "tcp"
+<<<<<<< HEAD
+=======
+    security_groups = [aws_security_group.elb-sg.id]
+  }
+  ingress {
+    from_port       = 3306
+    to_port         = 3306
+    protocol        = "tcp"
+>>>>>>> a6ed9011ad0aa0c8ebe3c21a27b617327bba9c2b
     security_groups = [aws_security_group.elb-sg.id]
   }
 

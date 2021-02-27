@@ -105,7 +105,7 @@ resource "aws_autoscaling_group" "asg-sample" {
 
   tag {
     key                 = "Name"
-    value               = "terraform-asg-sample"
+    value               = "web-tier"
     propagate_at_launch = true
   }
 }

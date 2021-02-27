@@ -18,7 +18,7 @@
 #     publicly_accessible             = false
 #   }
 
-
+# data "aws_caller_identity" "current" {}
 
 resource "aws_rds_cluster" "default" {
   cluster_identifier      = "aurora-cluster-demo"
@@ -38,7 +38,7 @@ resource "aws_rds_cluster" "default" {
   #   source_engine_version = "5.7"
   #   bucket_name           = "GoGreen-02262021"
   #   bucket_prefix         = "backups"
-  #   ingestion_role        = "arn:aws:iam::1234567890:role/role-xtrabackup-rds-restore"
+  #   ingestion_role        = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/role-xtrabackup-rds-restore"
   # }
 
 }

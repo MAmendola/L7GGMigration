@@ -70,7 +70,7 @@
 #   versioning {
 #     enabled = true
 #   }
-  
+
 #   lifecycle_rule {
 #     prefix  = "config/"
 #     enabled = true

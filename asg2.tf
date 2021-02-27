@@ -129,15 +129,6 @@ resource "aws_security_group" "lb-sg-apptier" {
     from_port       = var.http_port
     to_port         = var.http_port
     protocol        = "tcp"
-<<<<<<< HEAD
-=======
-    security_groups = [aws_security_group.elb-sg.id]
-  }
-  ingress {
-    from_port       = 3306
-    to_port         = 3306
-    protocol        = "tcp"
->>>>>>> a6ed9011ad0aa0c8ebe3c21a27b617327bba9c2b
     security_groups = [aws_security_group.elb-sg.id]
   }
 

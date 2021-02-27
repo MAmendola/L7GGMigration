@@ -54,7 +54,6 @@ variable "ami" {
   default = "ami-0e999cbd62129e3b1"
 }
 
-<<<<<<< HEAD
 variable "users" {
   type        = list(string)
   description = "Users to create in a simple list format `[\"user1\", \"user2\"]. Use either variable `users` or `users_groups`"
@@ -78,7 +77,8 @@ variable "pgp_key" {
   type        = string
   description = "PGP key in plain text or using the format `keybase:username` to encrypt user keys and passwords"
   default     = "AKIAQWPSY6BWGNTFHBMT"
-=======
+}
+
 variable "db_username" {
   description = "Database administrator username"
   type        = string
@@ -89,5 +89,5 @@ variable "db_password" {
   description = "Database administrator password"
   type        = string
   sensitive   = true
->>>>>>> a6ed9011ad0aa0c8ebe3c21a27b617327bba9c2b
+
 }

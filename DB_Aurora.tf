@@ -33,10 +33,11 @@ resource "aws_rds_cluster" "default" {
   preferred_backup_window = "07:00-09:00"
   vpc_security_group_ids  = [aws_security_group.db_sec_group.id]
   skip_final_snapshot     = true
+  
   # s3_import {
   #   source_engine         = "aurora-mysql"
   #   source_engine_version = "5.7"
-  #   bucket_name           = "GoGreen-02262021"
+  #   bucket_name           = "go-green-02262021"
   #   bucket_prefix         = "backups"
   #   ingestion_role        = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/role-xtrabackup-rds-restore"
   # }

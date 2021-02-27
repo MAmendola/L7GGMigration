@@ -53,3 +53,28 @@ variable "ami" {
   type    = string
   default = "ami-0e999cbd62129e3b1"
 }
+
+variable "users" {
+  type        = list(string)
+  description = "Users to create in a simple list format `[\"user1\", \"user2\"]. Use either variable `users` or `users_groups`"
+  default     = ["sysadmin1", "sysadmin2", "dbadmin1", "dbadmin2", "monitoring_user_1", "monitoring_user_2", "monitoring_user_3", "monitoring_user_4"]
+}
+
+
+variable "create_access_keys" {
+  type        = bool
+  description = "Set to true to create programmatic access for all users"
+  default     = true
+}
+
+# variable "create_login_profiles" {
+#   type        = list(string)
+#   description = "Set to true to create console access for all users"
+#   default     = true
+# }
+
+variable "pgp_key" {
+  type        = string
+  description = "PGP key in plain text or using the format `keybase:username` to encrypt user keys and passwords"
+  default     = "AKIAQWPSY6BWGNTFHBMT"
+}

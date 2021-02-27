@@ -4,18 +4,18 @@ resource "aws_security_group" "sec_group" {
   vpc_id = aws_vpc.team2vpc.id
 
   ingress {
-    from_port   = var.http_port
-    to_port     = var.http_port
-    protocol    = "tcp"
-    security_groups = [aws_security_group.elb-sg.id] 
+    from_port       = var.http_port
+    to_port         = var.http_port
+    protocol        = "tcp"
+    security_groups = [aws_security_group.elb-sg.id]
   }
 
-   egress {
+  egress {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
-    }
+  }
 
 
 
@@ -48,7 +48,7 @@ resource "aws_launch_configuration" "asg-launch-config-sample" {
   instance_type   = var.instance_type
   security_groups = [aws_security_group.sec_group.id]
 
-user_data = <<-EOF
+  user_data = <<-EOF
               #!/bin/bash -ex
               yum -y install httpd php mysql php-mysql
               chkconfig httpd on
@@ -71,23 +71,23 @@ resource "aws_security_group" "elb-sg" {
   name   = "terraform-sample-elb-sg"
   vpc_id = aws_vpc.team2vpc.id
   # Allow all outbound
-   # Inbound HTTP from anywhere
+  # Inbound HTTP from anywhere
 
-    ingress {
+  ingress {
     from_port   = var.http_port
     to_port     = var.http_port
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
-    }
-  
+  }
 
-    egress {
+
+  egress {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
-    }
- 
+  }
+
 
 }
 
@@ -116,7 +116,7 @@ resource "aws_lb" "web_lb" {
   load_balancer_type = "application"
   security_groups    = [aws_security_group.elb-sg.id]
   subnets            = [aws_subnet.public1.id, aws_subnet.public2.id]
- 
+
 
   # health_check {
   #   healthy_threshold   = 2
@@ -129,13 +129,13 @@ resource "aws_lb" "web_lb" {
 
 
 
-    # health_check {
-    #   target              = "HTTP:${var.server_port}/"
-    #   interval            = 300
-    #   timeout             = 30
-    #   healthy_threshold   = 20
-    #   unhealthy_threshold = 20
-    # }
+  # health_check {
+  #   target              = "HTTP:${var.server_port}/"
+  #   interval            = 300
+  #   timeout             = 30
+  #   healthy_threshold   = 20
+  #   unhealthy_threshold = 20
+  # }
 }
 
 
@@ -159,13 +159,13 @@ resource "aws_lb_target_group" "web_tg" {
   port     = var.http_port
   protocol = "HTTP"
   vpc_id   = aws_vpc.team2vpc.id
-  
 
-health_check {
-      interval            = 30
-      timeout             = 5
-      healthy_threshold   = 2
-      unhealthy_threshold = 5
-      
-    }
+
+  health_check {
+    interval            = 30
+    timeout             = 5
+    healthy_threshold   = 2
+    unhealthy_threshold = 5
+
+  }
 }

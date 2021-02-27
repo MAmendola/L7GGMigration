@@ -1,126 +1,127 @@
-resource "aws_iam_role" "replication" {
-  name = "tf-iam-role-replication-12345"
+# resource "aws_iam_role" "replication" {
 
-  assume_role_policy = <<POLICY
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "s3.amazonaws.com"
-      },
-      "Effect": "Allow",
-      "Sid": ""
-    }
-  ]
-}
-POLICY
-}
+#   name = "tf-iam-role-replication-12345"
 
-resource "aws_iam_policy" "replication" {
-  name = "tf-iam-role-policy-replication-12345"
+#   assume_role_policy = <<POLICY
+# {
+#   "Version": "2012-10-17",
+#   "Statement": [
+#     {
+#       "Action": "sts:AssumeRole",
+#       "Principal": {
+#         "Service": "s3.amazonaws.com"
+#       },
+#       "Effect": "Allow",
+#       "Sid": ""
+#     }
+#   ]
+# }
+# POLICY
+# }
 
-  policy = <<POLICY
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Action": [
-        "s3:GetReplicationConfiguration",
-        "s3:ListBucket"
-      ],
-      "Effect": "Allow",
-      "Resource": [
-        "${aws_s3_bucket.bucket.arn}"
-      ]
-    },
-    {
-      "Action": [
-        "s3:GetObjectVersion",
-        "s3:GetObjectVersionAcl"
-      ],
-      "Effect": "Allow",
-      "Resource": [
-        "${aws_s3_bucket.bucket.arn}/*"
-      ]
-    },
-    {
-      "Action": [
-        "s3:ReplicateObject",
-        "s3:ReplicateDelete"
-      ],
-      "Effect": "Allow",
-      "Resource": "${aws_s3_bucket.destination.arn}/*"
-    }
-  ]
-}
-POLICY
-}
+# resource "aws_iam_policy" "replication" {
+#   name = "tf-iam-role-policy-replication-12345"
 
-resource "aws_iam_role_policy_attachment" "replication" {
-  role       = aws_iam_role.replication.name
-  policy_arn = aws_iam_policy.replication.arn
-}
+#   policy = <<POLICY
+# {
+#   "Version": "2012-10-17",
+#   "Statement": [
+#     {
+#       "Action": [
+#         "s3:GetReplicationConfiguration",
+#         "s3:ListBucket"
+#       ],
+#       "Effect": "Allow",
+#       "Resource": [
+#         "${aws_s3_bucket.bucket.arn}"
+#       ]
+#     },
+#     {
+#       "Action": [
+#         "s3:GetObjectVersion",
+#         "s3:GetObjectVersionAcl"
+#       ],
+#       "Effect": "Allow",
+#       "Resource": [
+#         "${aws_s3_bucket.bucket.arn}/*"
+#       ]
+#     },
+#     {
+#       "Action": [
+#         "s3:ReplicateObject",
+#         "s3:ReplicateDelete"
+#       ],
+#       "Effect": "Allow",
+#       "Resource": "${aws_s3_bucket.destination.arn}/*"
+#     }
+#   ]
+# }
+# POLICY
+# }
 
-resource "aws_s3_bucket" "destination" {
-  bucket = "gogreen-replication-02262021"
+# resource "aws_iam_role_policy_attachment" "replication" {
+#   role       = aws_iam_role.replication.name
+#   policy_arn = aws_iam_policy.replication.arn
+# }
 
-  versioning {
-    enabled = true
-  }
+# resource "aws_s3_bucket" "destination" {
+#   bucket = "gogreen-replication-02262021"
+
+#   versioning {
+#     enabled = true
+#   }
   
-  lifecycle_rule {
-    prefix  = "config/"
-    enabled = true
+#   lifecycle_rule {
+#     prefix  = "config/"
+#     enabled = true
 
-    noncurrent_version_transition {
-      days          = 90
-      storage_class = "STANDARD_IA"
-    }
+#     noncurrent_version_transition {
+#       days          = 90
+#       storage_class = "STANDARD_IA"
+#     }
 
-    noncurrent_version_transition {
-      days          = 1825
-      storage_class = "GLACIER"
-    }
-  }
-}
+#     noncurrent_version_transition {
+#       days          = 1825
+#       storage_class = "GLACIER"
+#     }
+#   }
+# }
 
-resource "aws_s3_bucket" "bucket" {
-  #provider = aws.central
-  bucket   = "gogreen-02262021"
-  acl      = "private"
+# resource "aws_s3_bucket" "bucket" {
+#   #provider = aws.central
+#   bucket   = "gogreen-02262021"
+#   acl      = "private"
 
-  versioning {
-    enabled = true
-  }
+#   versioning {
+#     enabled = true
+#   }
 
-  replication_configuration {
-    role = aws_iam_role.replication.arn
+#   replication_configuration {
+#     role = aws_iam_role.replication.arn
 
-    rules {
-      id     = "gogreen-replication"
-      prefix = "bckup"
-      status = "Enabled"
+#     rules {
+#       id     = "gogreen-replication"
+#       prefix = "bckup"
+#       status = "Enabled"
 
-      destination {
-        bucket        = aws_s3_bucket.destination.arn
-        storage_class = "GLACIER"
-      }
-    }
+#       destination {
+#         bucket        = aws_s3_bucket.destination.arn
+#         storage_class = "GLACIER"
+#       }
+#     }
 
-    transition {
-      days          = 90
-      storage_class = "STANDARD_IA" # or "ONEZONE_IA"
-    }
+#     transition {
+#       days          = 90
+#       storage_class = "STANDARD_IA" # or "ONEZONE_IA"
+#     }
 
-    transition {
-      days          = 90
-      storage_class = "GLACIER"
-    }
+#     transition {
+#       days          = 90
+#       storage_class = "GLACIER"
+#     }
 
-    expiration {
-      days = 1825
-    }
-  }
-}
+#     expiration {
+#       days = 1825
+#     }
+#   }
+# }

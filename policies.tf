@@ -47,3 +47,25 @@ resource "aws_iam_role_policy" "test_policy" {
 }
 EOF
 }
+
+#GROUPS POLICIES
+
+resource "aws_iam_group_policy" "sysadmin_group_policy" {
+  name  = "sysadmin_policy"
+  group = aws_iam_group.SysAdmin.name
+
+  # Terraform's "jsonencode" function converts a
+  # Terraform expression result to valid JSON syntax.
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = [
+          "*",
+        ]
+        Effect   = "Allow"
+        Resource = "*"
+      },
+    ]
+  })
+}

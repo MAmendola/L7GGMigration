@@ -137,42 +137,42 @@ resource "aws_iam_account_password_policy" "passwd_policy" {
 #   pgp_key = var.pgp_key
 # }
 
-resource "aws_iam_user_login_profile" "sys1_console_access" {
-  user    = aws_iam_user.sysadmin1.name
-  pgp_key = var.pgp_key
-}
+# resource "aws_iam_user_login_profile" "sys1_console_access" {
+#   user    = aws_iam_user.sysadmin1.name
+#   pgp_key = var.pgp_key
+# }
 
-resource "aws_iam_user_login_profile" "sys2_console_access" {
-  user    = aws_iam_user.sysadmin2.name
-  pgp_key = var.pgp_key
-}
+# resource "aws_iam_user_login_profile" "sys2_console_access" {
+#   user    = aws_iam_user.sysadmin2.name
+#   pgp_key = var.pgp_key
+# }
 
-resource "aws_iam_user_login_profile" "dbsys1_console_access" {
-  user    = aws_iam_user.dbadmin1.name
-  pgp_key = var.pgp_key
-}
+# resource "aws_iam_user_login_profile" "dbsys1_console_access" {
+#   user    = aws_iam_user.dbadmin1.name
+#   pgp_key = var.pgp_key
+# }
 
-resource "aws_iam_user_login_profile" "dbsys2_console_access" {
-  user    = aws_iam_user.dbadmin2.name
-  pgp_key = var.pgp_key
-}
+# resource "aws_iam_user_login_profile" "dbsys2_console_access" {
+#   user    = aws_iam_user.dbadmin2.name
+#   pgp_key = var.pgp_key
+# }
 
-resource "aws_iam_user_login_profile" "monitor1_console_access" {
-  user    = aws_iam_user.monitoruser1.name
-  pgp_key = var.pgp_key
-}
+# resource "aws_iam_user_login_profile" "monitor1_console_access" {
+#   user    = aws_iam_user.monitoruser1.name
+#   pgp_key = var.pgp_key
+# }
 
-resource "aws_iam_user_login_profile" "monitor2_console_access" {
-  user    = aws_iam_user.monitoruser2.name
-  pgp_key = var.pgp_key
-}
+# resource "aws_iam_user_login_profile" "monitor2_console_access" {
+#   user    = aws_iam_user.monitoruser2.name
+#   pgp_key = var.pgp_key
+# }
 
-resource "aws_iam_user_login_profile" "monitor3_console_access" {
-  user    = aws_iam_user.monitoruser3.name
-  pgp_key = var.pgp_key
-}
+# resource "aws_iam_user_login_profile" "monitor3_console_access" {
+#   user    = aws_iam_user.monitoruser3.name
+#   pgp_key = var.pgp_key
+# }
 
-resource "aws_iam_user_login_profile" "monitor4_console_access" {
-  user    = aws_iam_user.monitoruser4.name
-  pgp_key = var.pgp_key
-}
+# resource "aws_iam_user_login_profile" "monitor4_console_access" {
+#   user    = aws_iam_user.monitoruser4.name
+#   pgp_key = var.pgp_key
+# }

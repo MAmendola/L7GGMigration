@@ -1,14 +1,11 @@
 # this is cloudfront.tf file
-  data "aws_s3_bucket" "origin" {
-  bucket = var.bucket_name
-}
 resource "aws_cloudfront_origin_access_identity" "origin_access_identity" {
   comment = "${var.environment}-cloudfront-access-identity"
 }
 resource "aws_cloudfront_distribution" "s3_distribution" {
   origin {
-    domain_name = data.aws_s3_bucket.origin.bucket_regional_domain_name
-    origin_id   = data.aws_s3_bucket.origin.id
+    domain_name = aws_s3_bucket.bucket.bucket_regional_domain_name
+    origin_id   = aws_s3_bucket.bucket.id
     s3_origin_config {
       origin_access_identity = aws_cloudfront_origin_access_identity.origin_access_identity.cloudfront_access_identity_path
     }
@@ -17,11 +14,11 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   is_ipv6_enabled     = var.is_ipv6_enabled
   comment             = var.comment
   default_root_object = var.default_root_object
-  aliases = var.aliases
+  aliases             = var.aliases
   default_cache_behavior {
     allowed_methods  = var.allowed_methods
     cached_methods   = var.cached_methods
-    target_origin_id = data.aws_s3_bucket.origin.bucket
+    target_origin_id = aws_s3_bucket.bucket.bucket
     forwarded_values {
       query_string = var.query_string
       headers      = var.headers
@@ -33,7 +30,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     min_ttl                = var.min_ttl
     default_ttl            = var.default_ttl
     max_ttl                = var.max_ttl
-    compress               =  var.compress
+    compress               = var.compress
   }
   price_class = var.price_class
   restrictions {
@@ -44,7 +41,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   }
   tags = {
     Environment = "var.environment"
-      }
+  }
   viewer_certificate {
     cloudfront_default_certificate = var.cloudfront_default_certificate
   }

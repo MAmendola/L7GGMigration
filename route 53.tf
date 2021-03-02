@@ -12,6 +12,6 @@ resource "aws_route53_record" "www" {
   records = [aws_route53_zone.l7gogreen.com]
 }
 alias {
-   name = aws_route53_zone.www.l7gogreen.com
-   zone_id = aws_route5.zone.l7gogreen.zone_id
+   name = aws_cloudfront.www.l7gogreen.com
+   zone_id = aws_cloudfront.zone.l7gogreen.zone_id
 }

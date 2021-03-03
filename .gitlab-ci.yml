@@ -6,8 +6,8 @@
 
 #updated include statement commented out .yml file
 include:
-- project: '011CA-SU20-GRP/L7A-GoGreen'
-    ref: master
+  project: '011CA-SU20-GRP/L7A-GoGreen'
+  ref: master
 # - file: '.gitlab-ci.yml'
 
 image:

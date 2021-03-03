@@ -30,6 +30,7 @@ stages:
   - build
   - test
   - deploy
+  - destroy
 
 validate:
   stage: validate
@@ -60,3 +61,15 @@ apply:
   when: manual
   only:
     - master
+
+destroy:
+    stage: destroy
+    environment:
+      name: production
+    script:
+      - terraform destroy --auto-approve
+    dependencies:
+      - apply
+    when: manual
+    only:
+      - master

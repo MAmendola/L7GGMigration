@@ -23,7 +23,7 @@
 # resource "aws_sns_topic_subscription" "team2" {
 #   topic_arn = "arn:aws:sns:us-west-2:086790382789:team2"
 #   protocol  = "sms"
-#   endpoint  = "phone number"# needs phone number
+#   endpoint  = "2026707710"# needs phone number
 # }
 
 # resource "aws_cloudwatch_metric_alarm" "nlb_healthyhosts" {

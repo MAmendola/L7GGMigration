@@ -5,7 +5,7 @@ resource "aws_route53_zone" "l7gogreen" {
 
 }
 
-resource "aws_route53_record" "www" {
+resource "aws_route53_record" "www1" {
   zone_id = aws_route53_zone.l7gogreen.zone_id
   name    = "www.l7gogreen.com"
   type    = "A"

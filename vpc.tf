@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 resource "aws_vpc" "team2vpc" {
   cidr_block = "10.0.0.0/16"
 
@@ -210,3 +211,13 @@ resource "aws_nat_gateway" "nat-2b" {
   subnet_id     = aws_subnet.public2.id
 }
 
+=======
+# resource "aws_vpc" "team2vpc" {
+#   cidr_block       = "10.0.0.0/16"
+#   instance_tenancy = "default"
+
+#   tags = {
+#     Name = "main"
+#   }
+# }
+>>>>>>> 755e7da1302874e71bf6bc282345bd16960dac93

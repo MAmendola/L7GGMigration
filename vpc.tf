@@ -211,4 +211,4 @@ resource "aws_nat_gateway" "nat-2b" {
   subnet_id     = aws_subnet.public2.id
 }
 
->>>>>>> dev
+

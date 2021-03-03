@@ -3,8 +3,11 @@
 #
 # Entrypoint is also needed as image by default set `terraform` binary as an
 # entrypoint.
+
+#updated include statement commented out .yml file
 include:
-- project: '011ca-su20-grp/l7a-gogreen'
+- project: '011CA-SU20-GRP/L7A-GoGreen'
+    ref: master
 # - file: '.gitlab-ci.yml'
 
 image:
@@ -41,8 +44,8 @@ validate:
 
 plan:
   stage: build
-  script:
-    - terraform plan -destroy -out=$PLAN
+  script:            
+    - terraform plan #-destroy -out=$PLAN
     - "terraform show --json $PLAN | convert_report > $JSON_PLAN_FILE"
   artifacts:
     paths:

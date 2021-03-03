@@ -27,7 +27,6 @@ before_script:
 stages:
   - validate
   - build
-  - test
   - deploy
 
 validate:
@@ -53,7 +52,7 @@ apply:
   environment:
     name: production
   script:
-    - terraform apply -input=false $PLAN
+    - terraform apply --auto-approve
   dependencies:
     - plan
   when: manual

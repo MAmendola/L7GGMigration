@@ -18,7 +18,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   default_cache_behavior {
     allowed_methods  = var.allowed_methods
     cached_methods   = var.cached_methods
-    target_origin_id = aws_s3_bucket.bucket.bucket
+    target_origin_id = aws_s3_bucket.bucket.id
     forwarded_values {
       query_string = var.query_string
       headers      = var.headers

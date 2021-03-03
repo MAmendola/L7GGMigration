@@ -4,7 +4,7 @@ resource "aws_route53_zone" "gogreen" {
 }
 
 //Creates record in hosted zone RT53
-resource "aws_route53_record" "www" {
+resource "aws_route53_record" "www1" {
   zone_id = aws_route53_zone.gogreen.zone_id
   name    = "www.globalebsolutions.com"
   type    = "A"

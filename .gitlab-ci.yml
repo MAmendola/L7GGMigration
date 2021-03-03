@@ -48,8 +48,6 @@ plan:
 # action.
 apply:
   stage: deploy
-  environment:
-    name: production
   script:
     - terraform apply -input=false $PLAN
   dependencies:

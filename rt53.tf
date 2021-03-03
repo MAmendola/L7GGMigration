@@ -9,7 +9,7 @@ resource "aws_route53_record" "www" {
   name    = "www.globalebsolutions.com"
   type    = "A"
   alias {
-    name    = aws_lb.web_lb.dns_name  //resolves dns name to webtier lb dns name
+    name    = "dualstack.${aws_lb.web_lb.dns_name}"  //resolves dns name to webtier lb dns name
     zone_id = aws_lb.web_lb.zone_id   
     evaluate_target_health = true
     

@@ -4,12 +4,6 @@
 # Entrypoint is also needed as image by default set `terraform` binary as an
 # entrypoint.
 
-#updated include statement commented out .yml file
-include:
-  project: '011CA-SU20-GRP/L7A-GoGreen'
-  ref: master
-# - file: '.gitlab-ci.yml'
-
 image:
   name: registry.gitlab.com/gitlab-org/gitlab-build-images:terraform
   entrypoint:

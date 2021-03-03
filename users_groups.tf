@@ -20,7 +20,7 @@ resource "aws_iam_user" "dbadmin1" {
 }
 
 resource "aws_iam_access_key" "dbadmin-1" {
-  user = aws_iam_user.dbsadmin1.name
+  user = aws_iam_user.dbadmin1.name
 }
 
 resource "aws_iam_user" "dbadmin2" {

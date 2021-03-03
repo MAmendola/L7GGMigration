@@ -33,7 +33,7 @@ resource "aws_rds_cluster" "default" {
   preferred_backup_window = "07:00-09:00"
   vpc_security_group_ids  = [aws_security_group.db_sec_group.id]
   skip_final_snapshot     = true
-  
+
   # s3_import {
   #   source_engine         = "aurora-mysql"
   #   source_engine_version = "5.7"

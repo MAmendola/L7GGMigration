@@ -4,15 +4,15 @@ resource "aws_route53_zone" "gogreen" {
 }
 
 //Creates record in hosted zone RT53
-resource "aws_route53_record" "www1" {
+resource "aws_route53_record" "www" {
   zone_id = aws_route53_zone.gogreen.zone_id
   name    = "www.globalebsolutions.com"
   type    = "A"
   alias {
-    name                   = aws_lb.web_lb.dns_name //resolves dns name to webtier lb dns name
-    zone_id                = aws_lb.web_lb.zone_id
+    name    = "dualstack.${aws_lb.web_lb.dns_name}"  //resolves dns name to webtier lb dns name
+    zone_id = aws_lb.web_lb.zone_id   
     evaluate_target_health = true
-
+    
   }
 }
 

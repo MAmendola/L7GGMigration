@@ -1,4 +1,3 @@
-
 resource "aws_security_group" "sec_group" {
   name   = "sec_group"
   vpc_id = aws_vpc.team2vpc.id
@@ -72,10 +71,21 @@ resource "aws_security_group" "elb-sg" {
   vpc_id = aws_vpc.team2vpc.id
   # Allow all outbound
   # Inbound HTTP from anywhere
-
-  ingress {
+ ingress {
     from_port   = var.http_port
     to_port     = var.http_port
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+ ingress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  ingress {
+    from_port   = 53
+    to_port     = 53
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }

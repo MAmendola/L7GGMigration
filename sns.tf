@@ -1,5 +1,5 @@
 resource "aws_sns_topic" "team2" {
-  name = "team2"
+  name            = "team2"
   delivery_policy = <<EOF
 {
   "http": {
@@ -23,7 +23,7 @@ EOF
 resource "aws_sns_topic_subscription" "team2" {
   topic_arn = "arn:aws:sns:us-west-2:086790382789:team2"
   protocol  = "sms"
-  endpoint  = "phone number"# needs phone number
+  endpoint  = "2026707712" # needs phone number
 }
 
 resource "aws_cloudwatch_metric_alarm" "nlb_healthyhosts" {
@@ -40,7 +40,7 @@ resource "aws_cloudwatch_metric_alarm" "nlb_healthyhosts" {
   alarm_actions       = [aws_sns_topic.team2.arn]
   ok_actions          = [aws_sns_topic.team2.arn]
   dimensions = {
-    TargetGroup  = aws_lb_target_group.web_tg.arn_suffix
-    LoadBalancer = aws_lb.web_lb.arn_suffix
+    TargetGroup  = aws_lb_target_group.web_tg.arn
+    LoadBalancer = aws_lb.web_lb.arn
   }
 }

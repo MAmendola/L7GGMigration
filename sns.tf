@@ -21,7 +21,7 @@ resource "aws_sns_topic" "team2" {
 EOF
 }
 resource "aws_sns_topic_subscription" "team2" {
-  topic_arn = "arn:aws:sns:us-west-2:086790382789:team2"
+  topic_arn = aws_sns_topic.team2.id
   protocol  = "sms"
   endpoint  = "2026707710"# needs phone number
 }

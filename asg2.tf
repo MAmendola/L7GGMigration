@@ -43,13 +43,6 @@ resource "aws_security_group" "sec_group_apptier" {
     security_groups = [aws_security_group.lb-sg-apptier.id] #------the surce is lb in webtier to test only
   }
 
-    ingress {
-    from_port       = 3306
-    to_port         = 3306
-    protocol        = "tcp"
-    security_groups = [aws_security_group.lb-sg-apptier.id] #------the surce is lb in webtier to test only
-  }
-
   egress {
     from_port   = 0
     to_port     = 0
